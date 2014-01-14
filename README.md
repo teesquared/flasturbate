@@ -14,6 +14,8 @@ You can find the full source here,
 
 Follow the "Compiling from source" instruction there and you will also build flasturbate.exe.
 
+A snapshot of the sources used to build the binaries in this distrubtion are in the file "sources.zip."
+
   [Flasturbate]: https://github.com/Teesquared/flasturbate
   [Teesquared's fork of RABCDAsm]: https://github.com/Teesquared/RABCDAsm
 
