@@ -1,0 +1,3 @@
+[submodule "RABCDAsm"]
+	path = RABCDAsm
+	url = git://github.com/Teesquared/RABCDAsm.git
