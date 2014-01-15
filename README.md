@@ -14,8 +14,6 @@ You can find the full source here,
 
 Follow the "Compiling from source" instruction there and you will also build flasturbate.exe.
 
-A snapshot of the sources used to build the binaries in this distrubtion are in the file "sources.zip."
-
   [Flasturbate]: https://github.com/Teesquared/flasturbate
   [Teesquared's fork of RABCDAsm]: https://github.com/Teesquared/RABCDAsm
 
@@ -124,14 +122,14 @@ So looking at a sample,
     ABC: org.flixel.system.replay => 1t11s0.1t11s1.1t41s0.1t44s0
     ...
 
-This shows you the tag (a DoABC tag), the symbol name (org.flixel.system.replay), and the obfuscated new variable name (1t11s0.1t11s1.1t41s0.1t44s0 ... don't you just love the sound of that?).
+This shows you the tag (a DoABC tag), the symbol name (org.flixel.system.replay), and the obfuscated new symbol name (1t11s0.1t11s1.1t41s0.1t44s0 ... don't you just love the sound of that?).
 
 If you have a problem with a flasturbated SWF, the flash exception dialog will display an obfuscated name. You can refer back to the output of flasturbate to see which source file that comes from.
 
 This is one of the complications of obfuscation in a language like ActionScript that supports reflection. There are situations in your code where the variable name must not change. The shared object variable name above is an example of when it must be a fixed value. There are cases where the variable must not be renamed at all (like MovieClip and Sprite). Flasturbate has an option called "--excludes" where you can list each name you want excluded from obfuscation. Plus you can provide multiple global files (playerglobal or airglobal, RSL SWC(s), and ANE(s)). All symbols in those globals will be excluded as well. In addition, for a game I developed, I had embedded json data. I added the "--json" option so that it would also obfuscate my json data.
 
-Final Remarks
--------------
+funny?
+------
 
     D:\projects\github\Teesquared\flasturbate
     >flasturbate --funny
