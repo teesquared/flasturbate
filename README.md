@@ -41,7 +41,7 @@ Since it's built on a powerful assembler/disassembler, the future may see a vers
       -g, --globalFile=FILE          the global file to use (multiple supported, default: "./playerglobal.swc")
       -h, --help                     display this help and exit
       -i, --includes=FILE            include names that match any listed in FILE
-      -j, --json                     the symbol name of a json binary tag you want processed (multiple supported)
+      -j, --json                     the symbol name of a json binary tag to process (multiple supported)
       -n, --namePrefix               prefix for each generated name (default: "")
       -o, --outputExt                the output file extension (default: "out")
       -q, --quiet                    do not print renames
@@ -71,10 +71,10 @@ It doesn't make sense to obfuscate a debug program so flasturbate will complain 
 
 First, make sure the program works by running mode.swf (e.g. double click on it and run it in Flash Player).
 
-If that works, then great. Play the game a little and email Adam and tell him it's too hard (j/k tell him you think it's great!).
+If that works, then great. Play the game a little and email Adam and tell him it's too hard (j/k tell him you think it's fun and a great test bed!).
 
 Next, make sure you have a copy of playerglobal.swc. This file defines many global symbols that flasturbate cannot obfuscate.
-If you don't use it then classes like "MovieClip" and "Sprite" will get renamed and your program won't work.
+If you don't use it then classes like "MovieClip" and "Sprite" will get renamed and your program won't work. If flasturbate cannot find a global file, it will fail. You can download the latest playerglobal.swc from Adobe [here](http://www.adobe.com/support/flashplayer/downloads.html).
 
 You can tell flasturbate where your playerglobal.swc is by using the "--globalFile" option or just copy the file to the same directory you run flasturbate from and it will find it by default.
 
@@ -126,7 +126,9 @@ This shows you the tag (a DoABC tag), the symbol name (org.flixel.system.replay)
 
 If you have a problem with a flasturbated SWF, the flash exception dialog will display an obfuscated name. You can refer back to the output of flasturbate to see which source file that comes from.
 
-This is one of the complications of obfuscation in a language like ActionScript that supports reflection. There are situations in your code where the variable name must not change. The shared object variable name above is an example of when it must be a fixed value. There are cases where the variable must not be renamed at all (like MovieClip and Sprite). Flasturbate has an option called "--excludes" where you can list each name you want excluded from obfuscation. Plus you can provide multiple global files (playerglobal or airglobal, RSL SWC(s), and ANE(s)). All symbols in those globals will be excluded as well. In addition, for a game I developed, I had embedded json data. I added the "--json" option so that it would also obfuscate my json data.
+This is one of the complications of obfuscation in a language like ActionScript that supports reflection. There are situations in your code where the variable name must not change. The shared object variable name above is an example of when it must be a fixed value. There are cases where the variable must not be renamed at all (like MovieClip and Sprite). Flasturbate has an option called "--excludes" where you can list each name you want excluded from obfuscation. Plus you can provide multiple global files (playerglobal or airglobal, RSL SWC(s), and ANE(s)). All symbols in those globals will be excluded as well.
+
+Another example of a problem with obfuscation is when you use json. In ActionScript, when you load the json file, it returns a dynamic object with properties named using the names defined in the json name/value pairs. For example, let's say I have a json file that defines a value named "funny." My ActionScript would try to access it using a property called "funny" on the object returned from the json parser (say "obj.funny"). After obfuscation, the code may turn into "obj.1t12s0" which is clearly not "funny." To solve this problem for json that is embedded as a binary tag in the SWF, you can use the "--json" option and flasturbate will also obfuscate your json data using the same symbol name mapping for the ActionScript code that uses it. Even though it's still not funny, no one thinks it's funny, and it works. Got it? If you load json data dynamiclly at runtime, then you will need to obfuscate it manually using the symbol map that flasturbate outputs or just add all the json names to a text file and use the "--excludes" option.
 
 funny?
 ------
