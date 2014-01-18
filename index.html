@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Flasturbate : A SWF obfuscator." />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Flasturbate</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/Teesquared/flasturbate">View on GitHub</a>
+
+          <h1 id="project_title">Flasturbate</h1>
+          <h2 id="project_tagline">A SWF obfuscator.</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/Teesquared/flasturbate/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/Teesquared/flasturbate/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a name="flasturbate" class="anchor" href="#flasturbate"><span class="octicon octicon-link"></span></a>flasturbate</h1>
+
+<p>A SWF obfuscator.</p>
+
+<h2>
+<a name="wheres-the-source" class="anchor" href="#wheres-the-source"><span class="octicon octicon-link"></span></a>Where's the source?</h2>
+
+<p><a href="https://github.com/Teesquared/flasturbate">Flasturbate</a> is part of a fork of RABCDAsm (A Robust ABC Assembler/Disassembler).</p>
+
+<p>You can find the full source here,</p>
+
+<p><a href="https://github.com/Teesquared/RABCDAsm">Teesquared's fork of RABCDAsm</a></p>
+
+<p>Follow the "Compiling from source" instruction there and you will also build flasturbate.exe.</p>
+
+<h2>
+<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h2>
+
+<p><a href="https://github.com/Teesquared/flasturbate">Flasturbate</a> is a command line program. You pass in options and the SWF file or files your want to obfuscate.
+By default it will produce an output file with all qualified symbols obfuscated.</p>
+
+<p>The program currently only obfuscates symbol names. It does not alter bytecodes to thwart disassembly but it sure makes reading the code in a SWF really hard to understand.</p>
+
+<p>Since it's built on a powerful assembler/disassembler, the future may see a version that does mangle bytecodes.</p>
+
+<pre><code>D:\projects\github\Teesquared\flasturbate
+&gt;flasturbate -h
+Usage: flasturbate [OPTION] FILE ...
+A tool that let's you play with your swf.
+
+Options:
+      --allowDebug               allow enable debugger tags and debug opcodes
+  -e, --excludes=FILE            exclude names that match any listed in FILE
+      --fart                     don't use this option
+  -f, --fixed=FILE               use a fixed renaming for names listed in FILE
+      --funny                    this option is undocumented
+  -g, --globalFile=FILE          the global file to use (multiple supported, default: "./playerglobal.swc")
+  -h, --help                     display this help and exit
+  -i, --includes=FILE            include names that match any listed in FILE
+  -j, --json                     the symbol name of a json binary tag to process (multiple supported)
+  -n, --namePrefix               prefix for each generated name (default: "")
+  -o, --outputExt                the output file extension (default: "out")
+  -q, --quiet                    do not print renames
+  -t, --test                     load a swf, write it back out, and report any inconsistencies
+  -v, --verbose                  enable verbose output
+      --version                  output version information and exit
+
+  "Live long and flasturbate."
+</code></pre>
+
+<h2>
+<a name="platforms" class="anchor" href="#platforms"><span class="octicon octicon-link"></span></a>Platforms</h2>
+
+<p><a href="https://github.com/Teesquared/flasturbate">Flasturbate</a> was developed for and runs under Windows 7 64 bit.
+The base engine should work on Macs, but it is untested.
+If you are building it on a different platform, use the "--test" option. This will read and write out the SWF.
+It reports any inconsistency. So if it works, you're in good shape.</p>
+
+<h2>
+<a name="example" class="anchor" href="#example"><span class="octicon octicon-link"></span></a>Example</h2>
+
+<p>The best way to learn to flasturbate, is to watch someone do it. So here's an example.</p>
+
+<p>Download and build Adam Atomic's <a href="https://github.com/AdamAtomic/Mode">mode</a> program. Make sure you build the release version.
+It doesn't make sense to obfuscate a debug program so flasturbate will complain if you try to do it.</p>
+
+<p>First, make sure the program works by running mode.swf (e.g. double click on it and run it in Flash Player).</p>
+
+<p>If that works, then great. Play the game a little and email Adam and tell him it's too hard (j/k tell him you think it's fun and a great test bed!).</p>
+
+<p>Next, make sure you have a copy of playerglobal.swc. This file defines many global symbols that flasturbate cannot obfuscate.
+If you don't use it then classes like "MovieClip" and "Sprite" will get renamed and your program won't work. If flasturbate cannot find a global file, it will fail. You can download the latest playerglobal.swc from Adobe <a href="http://www.adobe.com/support/flashplayer/downloads.html">here</a>.</p>
+
+<p>You can tell flasturbate where your playerglobal.swc is by using the "--globalFile" option or just copy the file to the same directory you run flasturbate from and it will find it by default.</p>
+
+<p>For this example, just copy playerglobal.swc and mode.swf to the same directory where flasturbate.exe is. Then run this,</p>
+
+<pre><code>D:\projects\github\Teesquared\flasturbate
+&gt;flasturbate mode.swf
+FRM: Preloader =&gt; 1t84s0
+EXP: org.flixel.FlxGame_SndBeep =&gt; 1t11s0.1t11s1.1t684s0
+ABC: org.flixel =&gt; 1t11s0.1t11s1
+ABC: FlxState =&gt; 1t12s0
+ABC: FlxSound =&gt; 1t16s0
+ABC: FlxCamera =&gt; 1t20s0
+ABC: FlxBasic =&gt; 1t21s0
+ABC: FlxGame =&gt; 1t22s0
+ABC: FlxObject =&gt; 1t35s0
+ABC: FlxPath =&gt; 1t36s0
+ABC: FlxPoint =&gt; 1t37s0
+ABC: FlxRect =&gt; 1t38s0
+ABC: FlxTimer =&gt; 1t39s0
+ABC: org.flixel.system =&gt; 1t11s0.1t11s1.1t41s0
+ABC: FlxQuadTree =&gt; 1t42s0
+ABC: org.flixel.system.replay =&gt; 1t11s0.1t11s1.1t41s0.1t44s0
+...
+</code></pre>
+
+<p>Now you'll see a new file "mode.swf.out" in the same directory. Rename it to my-first-flasturbation.swf (or whatever) and run it...</p>
+
+<p>Congratulations! You just flasturbated. I'm sure it's something you'll never forget :)</p>
+
+<p>So technically it looks like it's working great but there is something wrong. The game saves its state in a shared object file (sol). In this case, it has only one variable it saves which is "plays". You need to tell flasturbate to always obfuscate the variable plays the same way. You can do this by putting it in a text file and using the "--fixed" option.</p>
+
+<pre><code>D:\projects\github\Teesquared\flasturbate
+&gt;flasturbate -f mode-fixed.txt mode.swf
+...
+ABC: plays =&gt; 1f5
+...
+</code></pre>
+
+<p>Now if you make changes and release a new version of the game, when you obfuscate it again, the variable "plays" will always be renamed to the wonderfully descriptive name "1f5."</p>
+
+<p>When you flasturbate, the output looks like a total mess. It's actually very useful to see what it's doing.</p>
+
+<p>So looking at a sample,</p>
+
+<pre><code>...
+ABC: org.flixel.system.replay =&gt; 1t11s0.1t11s1.1t41s0.1t44s0
+...
+</code></pre>
+
+<p>This shows you the tag (a DoABC tag), the symbol name (org.flixel.system.replay), and the obfuscated new symbol name (1t11s0.1t11s1.1t41s0.1t44s0 ... don't you just love the sound of that?).</p>
+
+<p>If you have a problem with a flasturbated SWF, the flash exception dialog will display an obfuscated name. You can refer back to the output of flasturbate to see which source file that comes from.</p>
+
+<p>This is one of the complications of obfuscation in a language like ActionScript that supports reflection. There are situations in your code where the variable name must not change. The shared object variable name above is an example of when it must be a fixed value. There are cases where the variable must not be renamed at all (like MovieClip and Sprite). Flasturbate has an option called "--excludes" where you can list each name you want excluded from obfuscation. Plus you can provide multiple global files (playerglobal or airglobal, RSL SWC(s), and ANE(s)). All symbols in those globals will be excluded as well.</p>
+
+<p>Another example of a problem with obfuscation is when you use json. In ActionScript, when you load the json file, it returns a dynamic object with properties named using the names defined in the json name/value pairs. For example, let's say I have a json file that defines a value named "funny." My ActionScript would try to access it using a property called "funny" on the object returned from the json parser (say "obj.funny"). After obfuscation, the code may turn into "obj.1t12s0" which is clearly not "funny." To solve this problem for json that is embedded as a binary tag in the SWF, you can use the "--json" option and flasturbate will also obfuscate your json data using the same symbol name mapping for the ActionScript code that uses it. Even though it's still not funny, no one thinks it's funny, and it works. Got it? If you load json data dynamiclly at runtime, then you will need to obfuscate it manually using the symbol map that flasturbate outputs or just add all the json names to a text file and use the "--excludes" option.</p>
+
+<h2>
+<a name="funny" class="anchor" href="#funny"><span class="octicon octicon-link"></span></a>funny?</h2>
+
+<pre><code>D:\projects\github\Teesquared\flasturbate
+&gt;flasturbate --funny
+  "Once you flasturbate, you'll never have a fake obfuscation again."
+</code></pre>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Flasturbate maintained by <a href="https://github.com/Teesquared">Teesquared</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
