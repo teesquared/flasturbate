@@ -12,7 +12,7 @@ You can find the full source here,
 
 [Teesquared's fork of RABCDAsm][]
 
-Follow the "Compiling from source" instruction there and you will also build flasturbate.exe.
+Follow the "Compiling from source" instruction there and you will also build flasturbate.
 
   [Flasturbate]: https://github.com/Teesquared/flasturbate
   [Teesquared's fork of RABCDAsm]: https://github.com/Teesquared/RABCDAsm
@@ -20,12 +20,12 @@ Follow the "Compiling from source" instruction there and you will also build fla
 Usage
 -----
 
-[Flasturbate][] is a command line program. You pass in options and the SWF file or files your want to obfuscate.
-By default it will produce an output file with all qualified symbols obfuscated.
+[Flasturbate][] is a command line program. You pass in options and the SWF file or files you want to obfuscate.
+By default, it will produce an output file with all qualified symbols obfuscated.
 
 The program currently only obfuscates symbol names. It does not alter bytecodes to thwart disassembly but it sure makes reading the code in a SWF really hard to understand.
 
-Since it's built on a powerful assembler/disassembler, the future may see a version that does mangle bytecodes.
+Since it's built on a robust assembler/disassembler, the future may see a version that does mangle bytecodes.
 
     D:\projects\github\Teesquared\flasturbate
     >flasturbate -h
@@ -55,14 +55,14 @@ Platforms
 ---------
 
 [Flasturbate][] was developed for and runs under Windows 7 64 bit.
-The base engine should work on Macs, but it is untested.
+The base engine should work on Macs and Linux, but the obfuscator changes are untested on those platforms.
 If you are building it on a different platform, use the "--test" option. This will read and write out the SWF.
 It reports any inconsistency. So if it works, you're in good shape.
 
 Example
 -------
 
-The best way to learn to flasturbate, is to watch someone do it. So here's an example.
+The best way to learn to flasturbate is to give it a try. So here's an example.
 
 Download and build Adam Atomic's [mode][] program. Make sure you build the release version.
 It doesn't make sense to obfuscate a debug program so flasturbate will complain if you try to do it.
@@ -100,11 +100,11 @@ For this example, just copy playerglobal.swc and mode.swf to the same directory 
     ABC: org.flixel.system.replay => 1t11s0.1t11s1.1t41s0.1t44s0
     ...
 
-Now you'll see a new file "mode.swf.out" in the same directory. Rename it to my-first-flasturbation.swf (or whatever) and run it...
+Now you'll see a new file "mode.swf.out" in the same directory. Rename it to "my-first-flasturbation.swf" (or whatever) and run it...
 
 Congratulations! You just flasturbated. I'm sure it's something you'll never forget :)
 
-You're probably pretty happy right now. You just produced a good obfuscation. You didn't hurt your swf. And you have a warm fuzzy feeling inside. But something is not right. Your obfuscation just slightly missed the target. The game saves its state in a shared object file (sol). In this case, it has only one variable it saves which is "plays". You need to tell flasturbate to always obfuscate the variable "plays" the same way. You can do this by putting it in a text file and using the "--fixed" option.
+You're probably pretty happy right now. You just produced a good obfuscation. You didn't hurt your swf. And, you have a warm fuzzy feeling inside. But something is not right. Your obfuscation just slightly missed the target. The game saves its state in a shared object file (sol). In this case, it has only one variable it saves which is "plays". You need to tell flasturbate to always obfuscate the variable "plays" the same way. You can do this by putting it in a text file and using the "--fixed" option.
 
     D:\projects\github\Teesquared\flasturbate
     >type mode-fixed.txt
@@ -130,7 +130,7 @@ This shows you the tag (a DoABC tag), the symbol name (org.flixel.system.replay)
 
 If you have a problem with a flasturbated SWF, the flash exception dialog will display an obfuscated name. You can refer back to the output of flasturbate to see which source file that comes from.
 
-This is one of the complications of obfuscation in a language like ActionScript that supports reflection. There are situations in your code where the variable name must not change. The shared object variable name above is an example of when it must be a fixed value. There are cases where the variable must not be renamed at all (like MovieClip and Sprite). Flasturbate has an option called "--excludes" where you can list each name you want excluded from obfuscation. Plus you can provide multiple global files (playerglobal or airglobal, RSL SWC(s), and ANE(s)). All symbols in those globals will be excluded as well.
+This is one of the complications of obfuscation in a language like ActionScript that supports reflection. There are situations in your code where the variable name must not change. The shared object variable name above is an example of when it must be a fixed value. There are cases where the variable must not be renamed at all (like MovieClip and Sprite). Flasturbate has an option called "--excludes" where you can list each name you want excluded from obfuscation. Plus you can provide multiple global files (playerglobal or airglobal, RSL SWCs, and ANEs). All symbols in those globals will be excluded as well.
 
 Another example of a problem with obfuscation is when you use json. In ActionScript, when you load the json file, it returns a dynamic object with properties named using the names defined in the json name/value pairs. For example, let's say I have a json file that defines a value named "funny". My ActionScript would try to access it using a property called "funny" on the object returned from the json parser (say "obj.funny"). After obfuscation, the code may turn into "obj.1t12s0" which is clearly not "funny". To solve this problem for json that is embedded as a binary tag in the SWF, you can use the "--json" option and flasturbate will also obfuscate your json data using the same symbol name mapping for the ActionScript code that uses it. Even though it's still not "funny", now no one thinks it's "funny", and it works. Got it? If you load json data dynamicly at runtime, then you will need to obfuscate it manually using the symbol map that flasturbate outputs or just add all the json names to a text file and use the "--excludes" option.
 
