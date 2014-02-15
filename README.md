@@ -71,7 +71,7 @@ It doesn't make sense to obfuscate a debug program so flasturbate will complain 
 
 First, make sure the program works by running mode.swf (e.g. double click on it and run it in Flash Player).
 
-If that works, then great. Play the game a little and email Adam and tell him it's too hard (j/k tell him you think it's fun and a great test bed!).
+If that works, then great. Play the game a little and tell Adam it's too hard (j/k tell him you think it's fun and a great test bed!).
 
 Next, make sure you have a copy of playerglobal.swc. This file defines many global symbols that flasturbate cannot obfuscate.
 If you don't use it then classes like "MovieClip" and "Sprite" will get renamed and your program won't work. If flasturbate cannot find a global file, it will fail. You can download the latest playerglobal.swc from Adobe [here](http://www.adobe.com/support/flashplayer/downloads.html).
