@@ -143,7 +143,7 @@ The moral of the story is: flasturbation is a great form of protection but you h
 Got bugs?
 ---------
 
-Don't be embarrassed to tell me that you are having problems flasturbating. Other developers are probably having the same problems too. Feel free to email me (teesquared _at_ twistedwords.net) or submit an issue to github. You should include the output of flasturbate using the "--test" option. This will dump out the hex values for the tag that is causing problems as well as the parent tag if there is one. I can use this output to track down the issue (or you can too and please let me know what you find).
+Don't be embarrassed if you are having problems flasturbating. Other developers are probably having the same problems too. Feel free to email me (teesquared _at_ twistedwords.net) or submit an issue to github. You should include the output of flasturbate using the "--test" option. This will dump out the hex values for the tag that is causing problems as well as the parent tag if there is one. I can use this output to track down the issue (or you can too and please let me know what you find).
 
 Known issues
 ------------
