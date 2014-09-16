@@ -45,6 +45,7 @@ Since it's built on a robust assembler/disassembler, the future may see a versio
       -n, --namePrefix               prefix for each generated name (default: "")
       -o, --outputExt                the output file extension (default: "out")
       -q, --quiet                    do not print renames
+          --skipCacheAsBitmapByte    skip reading an extra byte for PlaceObject3 tags
       -t, --test                     load a swf, write it back out, and report any inconsistencies
       -v, --verbose                  enable verbose output
           --version                  output version information and exit
@@ -118,6 +119,9 @@ You're probably pretty happy right now. You just produced a good obfuscation. Yo
 
 Now if you make changes and release a new version of the game, when you obfuscate it again, the variable "plays" will always be renamed to the wonderfully descriptive name "1f5".
 
+The art of flasturbation
+------------------------
+
 When you flasturbate, the output looks like a total mess. It's actually very useful to see what it's doing.
 
 So looking at a sample,
@@ -132,9 +136,19 @@ If you have a problem with a flasturbated SWF, the flash exception dialog will d
 
 This is one of the complications of obfuscation in a language like ActionScript that supports reflection. There are situations in your code where the variable name must not change. The shared object variable name above is an example of when it must be a fixed value. There are cases where the variable must not be renamed at all (like MovieClip and Sprite). Flasturbate has an option called "--excludes" where you can list each name you want excluded from obfuscation. Plus you can provide multiple global files (playerglobal or airglobal, RSL SWCs, and ANEs). All symbols in those globals will be excluded as well.
 
-Another example of a problem with obfuscation is when you use json. In ActionScript, when you load the json file, it returns a dynamic object with properties named using the names defined in the json name/value pairs. For example, let's say I have a json file that defines a value named "funny". My ActionScript would try to access it using a property called "funny" on the object returned from the json parser (say "obj.funny"). After obfuscation, the code may turn into "obj.1t12s0" which is clearly not "funny". To solve this problem for json that is embedded as a binary tag in the SWF, you can use the "--json" option and flasturbate will also obfuscate your json data using the same symbol name mapping for the ActionScript code that uses it. Even though it's still not "funny", now no one thinks it's "funny", and it works. Got it? If you load json data dynamicly at runtime, then you will need to obfuscate it manually using the symbol map that flasturbate outputs or just add all the json names to a text file and use the "--excludes" option.
+Another example of a problem with obfuscation is when you use json. In ActionScript, when you load the json file, it returns a dynamic object with properties named using the names defined in the json name/value pairs. For example, let's say I have a json file that defines a value named "funny". My ActionScript would try to access it using a property called "funny" on the object returned from the json parser (say "obj.funny"). After obfuscation, the code may turn into "obj.1t12s0" which is clearly not "funny". To solve this problem for json that is embedded as a binary tag in the SWF, you can use the "--json" option and flasturbate will also obfuscate your json data using the same symbol name mapping for the ActionScript code that uses it. Even though it's still not "funny", now no one thinks it's "funny", and it works. Got it? If you load json data dynamically at runtime, then you will need to obfuscate it manually using the symbol map that flasturbate outputs or just add all the json names to a text file and use the "--excludes" option.
 
 The moral of the story is: flasturbation is a great form of protection but you have to be careful. If you're not careful then you will break your SWF and no one wants a broken SWF.
+
+Got bugs?
+---------
+
+Don't be embarrassed to tell me that you are having problems flasturbating. Other developers are probably having the same problems too. Feel free to email me (teesquared _at_ twistedwords.net) or submit an issue to github. You should include the output of flasturbate using the "--test" option. This will dump out the hex values for the tag that is causing problems as well as the parent tag if there is one. I can use this output to track down the issue (or you can too and please let me know what you find).
+
+Known issues
+------------
+
+If you use a frame label that has the same name as a symbol, it may be renamed by the obfuscator. Just add it to an excludes file and use the "--excludes" option to have flasturbate not rename the frame label.
 
 funny?
 ------
