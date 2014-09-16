@@ -140,8 +140,8 @@ Another example of a problem with obfuscation is when you use json. In ActionScr
 
 The moral of the story is: flasturbation is a great form of protection but you have to be careful. If you're not careful then you will break your SWF and no one wants a broken SWF.
 
-Got bugs?
----------
+Not working?
+------------
 
 Don't be embarrassed if you are having problems flasturbating. Other developers are probably having the same problems too. Feel free to email me (teesquared _at_ twistedwords.net) or submit an issue to github. You should include the output of flasturbate using the "--test" option. This will dump out the hex values for the tag that is causing problems as well as the parent tag if there is one. I can use this output to track down the issue (or you can too and please let me know what you find).
 
