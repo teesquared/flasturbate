@@ -30,7 +30,7 @@ Since it's built on a robust assembler/disassembler, the future may see a versio
     D:\projects\github\Teesquared\flasturbate
     >flasturbate -h
     Usage: flasturbate [OPTION] FILE ...
-    A tool that let's you play with your swf.
+    A tool that lets you play with your swf.
     
     Options:
           --allowDebug               allow enable debugger tags and debug opcodes
