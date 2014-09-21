@@ -60,8 +60,8 @@ The base engine should work on Macs and Linux, but the obfuscator changes are un
 If you are building it on a different platform, use the "--test" option. This will read and write out the SWF.
 It reports any inconsistency. So if it works, you're in good shape.
 
-Example
--------
+How to flasturbate
+------------------
 
 The best way to learn to flasturbate is to give it a try. So here's an example.
 
@@ -119,8 +119,8 @@ You're probably pretty happy right now. You just produced a good obfuscation. Yo
 
 Now if you make changes and release a new version of the game, when you obfuscate it again, the variable "plays" will always be renamed to the wonderfully descriptive name "1f5".
 
-The art of flasturbation
-------------------------
+The Joy of Obfuscation
+----------------------
 
 When you flasturbate, the output looks like a total mess. It's actually very useful to see what it's doing.
 
